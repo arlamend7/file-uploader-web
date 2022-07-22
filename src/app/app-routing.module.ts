@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ImportFormComponent } from 'src/app/pages/import-form.component';
+import { ImportFormComponent } from 'src/app/pages/imports/import-form.component';
 
 const routes: Routes = [
   {
-    path:'import',
+    path:'',
     component: ImportFormComponent
   }
 ];
