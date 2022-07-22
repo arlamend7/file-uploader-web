@@ -8,6 +8,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ModalAutenticacaoComponent } from './components/dialog-autentication/dialog-autenticacao.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+
 
 @NgModule({
     declarations: [
@@ -23,7 +25,9 @@ import {MatInputModule} from '@angular/material/input';
         MatCardModule,
         MatSnackBarModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        MatSelectModule
+        
     ],
     exports: [
         MatDialogModule,
@@ -34,7 +38,9 @@ import {MatInputModule} from '@angular/material/input';
         FormsModule,
         MatButtonModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        MatSelectModule
+    
     ],
     providers: [],
 })

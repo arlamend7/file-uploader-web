@@ -8,6 +8,10 @@ const routes: Routes = [
     path:'',
     component: ImportFormComponent,
     canActivate: [AutenticationGuard]
+  },
+  {
+    path:'import',
+    component:ImportFormComponent
   }
 ];
 
