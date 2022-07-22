@@ -1,21 +1,31 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Component } from "@angular/core";
+import { FormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: "selector-name",
   templateUrl: "import-form.component.html",
   styleUrls: ["import-form.component.css"],
 })
-export class ImportFormComponent implements OnInit {
-  constructor(private readonly httpClient: HttpClient) {}
+export class ImportFormComponent {
+  data = {
+    password: "",
 
-  form = new FormGroup({
-    file: new FormControl("", Validators.required),
-    fileSource: new FormControl("", Validators.required),
+  }
+  constructor(
+    private readonly httpClient: HttpClient,
+    private readonly formBuilder: FormBuilder) {
+    this.form = this.formBuilder.group({
+      ...this.data,
+      file: new UntypedFormControl("", Validators.required),
+      fileSource: new UntypedFormControl("", Validators.required),
+    });
+  }
+
+  form = new UntypedFormGroup({
+    file: new UntypedFormControl("", Validators.required),
+    fileSource: new UntypedFormControl("", Validators.required),
   });
-
-  ngOnInit() {}
 
   fileChanged(event: any) {
     if (event.target.files.length > 0) {

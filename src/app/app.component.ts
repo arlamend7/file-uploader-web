@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
                 height: 100%;
                 max-height: calc(100% - 65px);
             }
+            
         `,
     ],
 })
