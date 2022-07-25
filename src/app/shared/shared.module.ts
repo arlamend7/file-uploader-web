@@ -9,11 +9,13 @@ import { ModalAutenticacaoComponent } from './components/dialog-autentication/di
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import { ModalConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
 
 
 @NgModule({
     declarations: [
-        ModalAutenticacaoComponent
+        ModalAutenticacaoComponent,
+        ModalConfirmComponent
     ],
     imports: [
         MatDialogModule,

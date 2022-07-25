@@ -15,7 +15,7 @@ export class LocalStorageService {
     }
 
     get(key: string): { data: string, success: boolean } {
-        var value = this.storage.getItem(key);
+        const value = this.storage.getItem(key);
         if (value) {
             return { data: value, success: true };
         }

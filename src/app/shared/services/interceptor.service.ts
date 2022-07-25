@@ -2,9 +2,7 @@ import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } fro
 import { Injectable } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize, mergeMap, Observable, of, tap } from 'rxjs';
-import { AutorizationService } from 'src/libs/tg-utilities/services/autorization.service';
-import { TgOperatoresService } from 'src/libs/tg-utilities/services/tg-operators.service';
-
+import { TgOperatoresService } from './tg-operators.service';
 const InterceptorSkipHeader = 'X-Skip-spinner';
 
 export const headersSkipSpinner = new HttpHeaders({
@@ -12,9 +10,8 @@ export const headersSkipSpinner = new HttpHeaders({
 });
 
 @Injectable({ providedIn: 'root' })
-export class TgHttpInterceptor implements HttpInterceptor {
+export class SpinnerHttpInterceptor implements HttpInterceptor {
     constructor(
-        private readonly autorizationService: AutorizationService,
         private readonly tgOperatorService: TgOperatoresService,
         private readonly spinner: NgxSpinnerService,
     ) {}
@@ -22,7 +19,7 @@ export class TgHttpInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const authReq = request.clone({
             headers: new HttpHeaders({
-                Authorization: `Bearer ${this.autorizationService.Token}`,
+                Authorization: `Bearer ${"oi"}`,
             }),
         });
 
@@ -33,7 +30,6 @@ export class TgHttpInterceptor implements HttpInterceptor {
         return of(this.spinner.show())
             .pipe(mergeMap(() => next.handle(authReq)))
             .pipe(
-                tap({error : (err) => {if(err.status == 401) this.autorizationService.logout()}}),
                 this.tgOperatorService.handleError(),
                 finalize(() => {
                     this.spinner.hide();

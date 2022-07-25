@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ModalUploadReportComponent } from 'src/app/components/dialog-upload/dialog-upload-report.component';
+import { ModalConfirmComponent } from 'src/app/shared/components/dialog-confirm/dialog-confirm.component';
 
 @Component({
     selector: 'selector-name',
@@ -14,7 +19,11 @@ export class ImportFormComponent {
     disabled = true;
 
     form: FormGroup;
-    constructor(private readonly httpClient: HttpClient, private readonly formBuilder: FormBuilder) {
+    constructor(private readonly httpClient: HttpClient, 
+                private readonly formBuilder: FormBuilder,
+                private readonly dialog : MatDialog,
+                private readonly snackBar : MatSnackBar,
+                private readonly spinner: NgxSpinnerService) {
         this.form = this.formBuilder.group({
             ...this.data,
             file: ['', Validators.required],
@@ -131,9 +140,31 @@ export class ImportFormComponent {
         formData.append('classe', this.form.get('fileType')?.value);
         formData.append('operadora', this.form.get('operadora')?.value);
 
-        console.log(this.form.value);
-
-        this.httpClient.post('https://localhost:44372/integracao/import', formData).subscribe((data) => {
+        this.httpClient.post<{Sucesso : boolean, Rows : any[]}>('https://localhost:7224/integracao/validate', formData).subscribe((data) => {
+            console.log(data.Rows.filter(x => x.Error));
+                            
+            if(data.Sucesso){
+                this.dialog.open(ModalConfirmComponent, {
+                    data : {
+                        title : "Dados validos",
+                        message: "Deseja prosseguir com a importação?"
+                    }
+                }).afterClosed().subscribe(x => {
+                    if(x) this.httpClient.post<any>('https://localhost:7224/integracao/import', formData).subscribe(z => {
+                        console.log(z);
+                        
+                    })
+                })
+            }
+            else {
+                this.snackBar.open("Arquivo invalido, por favor verifique o relatorio de erro", "dance");
+                this.dialog.open(ModalUploadReportComponent, {
+                    data,
+                    width: '75%'
+                }).afterClosed().subscribe(x => {
+                    console.log(x);
+                })
+            }
             console.log(data);
             console.log('Uploaded');
         });

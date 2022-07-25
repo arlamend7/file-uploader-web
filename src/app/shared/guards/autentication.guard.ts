@@ -15,7 +15,8 @@ export class AutenticationGuard implements CanActivate {
     acertarSenha(): Observable<boolean> {
         return this.dialog.open(ModalAutenticacaoComponent, {
             width: '400px',
-            data: {}
+            data: {},
+            enterAnimationDuration: '800ms'
         }).afterClosed()
             .pipe(mergeMap(({ password }) => of(password == "arlan")))
             .pipe(mergeMap((x: boolean) => x ? of(true) : this.acertarSenha()))

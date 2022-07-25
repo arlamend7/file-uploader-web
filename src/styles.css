@@ -5,3 +5,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 selector-name {
     width:100% !important
 }
+mat-dialog-container, .border-accent {
+    border-bottom: 2px solid #ff4081b0 !important;
+}

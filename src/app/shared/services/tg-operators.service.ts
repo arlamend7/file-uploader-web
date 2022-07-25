@@ -1,16 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MonoTypeOperatorFunction, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TgOperatoresService {
-    constructor(private readonly toastr: ToastrService) {}
+    constructor(private readonly toastr: MatSnackBar) {}
 
     handleError<T>() : MonoTypeOperatorFunction<T> {
         return tap({
             error: (err: HttpErrorResponse) => {
-                
                 const errorMessage: { [index: number | string]: { title: string; message: string } } = {
                     0: {
                         title: 'Error',
@@ -23,7 +22,7 @@ export class TgOperatoresService {
                     default : {title : "Error", message : "Por favor, entre em contato com nossa equipe interna"}
                 };
                 const message = errorMessage[err.status] || errorMessage.default;
-                this.toastr.error(message.message, message.title);
+                this.toastr.open(message.message, "OK");
             },
         });
     }

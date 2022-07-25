@@ -1,7 +1,7 @@
 <div class="container w-50">
-    <mat-card [formGroup]="form" class="d-flex flex-column p-3">
+    <mat-card [formGroup]="form" class="d-flex flex-column p-3 border">
         <mat-card-title class="m-2 p-1"> Importar Arquivo </mat-card-title>
-        <mat-card-content class="row m-0">
+        <mat-card-content class="row m-0 mt-3">
             <mat-form-field>
                 <mat-label>Selecione a operadora</mat-label>
                 <mat-select [disabled]="disabled" class="" formControlName="operadora">
@@ -18,24 +18,23 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <div class="row">
-                <mat-form-field class="col-6">
-                    <mat-label>Selecione o mês</mat-label>
-                    <mat-select formControlName="month" class="">
-                        <mat-option *ngFor="let month of months" [value]="month.id">
-                            {{ month.id + ' - ' + month.name }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field class="col-6">
-                    <mat-label>Selecione o ano</mat-label>
-                    <mat-select formControlName="year" class="">
-                        <mat-option *ngFor="let year of Years" [value]="year">
-                            {{ year }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
+            
+            <mat-form-field class="col-6">
+                <mat-label>Selecione o mês</mat-label>
+                <mat-select formControlName="month" class="">
+                    <mat-option *ngFor="let month of months" [value]="month.id">
+                        {{ month.id + ' - ' + month.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-6">
+                <mat-label>Selecione o ano</mat-label>
+                <mat-select formControlName="year" class="">
+                    <mat-option *ngFor="let year of Years" [value]="year">
+                        {{ year }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
             <div class="col-12 mt-3">
                 <input
                     id="file"
